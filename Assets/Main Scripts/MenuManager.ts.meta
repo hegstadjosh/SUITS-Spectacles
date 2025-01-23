@@ -26,6 +26,7 @@
   CurrentVisibility: Editable
   MaxVisibility: Editable
   ScriptInputsHidden:
+    ingressManager: false
     mainMenuButton1: false
     mainMenuButton2: false
     mainMenuButton3: false
@@ -49,6 +50,7 @@
       menu4: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       mainMenuButton5: !<MappingBased.Interactable> 00000000-0000-0000-0000-000000000000
       menu5: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      ingressManager: !<MappingBased.Ingress> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
@@ -63,3 +65,4 @@
     - // @input SceneObject menu3
     - // @input SceneObject menu4
     - // @input SceneObject menu5
+    - // @input Ingress ingressManager

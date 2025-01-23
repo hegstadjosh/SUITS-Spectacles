@@ -7,6 +7,9 @@
 		{
 			"name": "EVA Lens",
 			"path": "."
+		},
+		{
+			"path": "../../SUITS-HoloLens/CUITS-HMD/Assets/Scripts"
 		}
 	],
 	"settings": {}

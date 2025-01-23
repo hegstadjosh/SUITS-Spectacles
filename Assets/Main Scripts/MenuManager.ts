@@ -1,5 +1,7 @@
 import { Interactable } from "SpectaclesInteractionKit/Components/Interaction/Interactable/Interactable";
 import { validate } from "../SpectaclesInteractionKit/Utils/validate";
+import { TSSData } from './TSS_Data';
+import { Ingress } from './Ingress';
 
 /**
  * Menu Manager for handling menu transitions and button interactions
@@ -12,12 +14,15 @@ export class MenuManager extends BaseScriptComponent {
     @input mainMenuButton3!: Interactable;
     @input mainMenuButton4!: Interactable;
     @input mainMenuButton5!: Interactable;
+
     // Menu objects to toggle
     @input menu1!: SceneObject;
     @input menu2!: SceneObject;
     @input menu3!: SceneObject;
     @input menu4!: SceneObject;
     @input menu5!: SceneObject;
+
+    @input ingressManager!: Ingress;
 
     onAwake(): void {
         // Validate all required inputs
@@ -61,6 +66,10 @@ export class MenuManager extends BaseScriptComponent {
 
     private toggleMenu4(): void {
         this.menu4.enabled = !this.menu4.enabled;
+
+        if (this.menu4.enabled) {
+            this.ingressManager.onAwake();
+        }
     }
 
     private toggleMenu5(): void {

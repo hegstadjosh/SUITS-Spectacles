@@ -1,0 +1,71 @@
+- !<AssetImportMetadata/dab639b9-f084-42ce-88e8-de67980613c9>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> 925c3f7d-2528-444b-b7a6-a03868883bee
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> 925c3f7d-2528-444b-b7a6-a03868883bee
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 744dbfe3-4269-4249-abef-8b16788060fc
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings/7c63b12e-28a1-4d82-805a-8825720ba788>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/744dbfe3-4269-4249-abef-8b16788060fc>
+  SvgIcon: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    DEPRESS_PUMP: false
+    EMU1_OXY: false
+    EMU1_POWER: false
+    EMU2_OXY: false
+    EMU2_POWER: false
+    EV1_SUPPLY: false
+    EV1_WASTE: false
+    EV2_SUPPLY: false
+    EV2_WASTE: false
+    O2_VENT: false
+    text: false
+    tss_obj: false
+  ScriptTypesHidden:
+    {}
+  DefaultScriptInputs:
+    - EMU1_POWER: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      EV1_SUPPLY: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      EV1_WASTE: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      EV2_SUPPLY: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      EV2_WASTE: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      EMU2_POWER: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      EMU1_OXY: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      EMU2_OXY: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      O2_VENT: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      DEPRESS_PUMP: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
+      text: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      tss_obj: !<MappingBased.TSS_Data> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input SceneObject EMU1_POWER
+    - // @input SceneObject EV1_SUPPLY
+    - // @input SceneObject EV1_WASTE
+    - // @input SceneObject EV2_SUPPLY
+    - // @input SceneObject EV2_WASTE
+    - // @input SceneObject EMU2_POWER
+    - // @input SceneObject EMU1_OXY
+    - // @input SceneObject EMU2_OXY
+    - // @input SceneObject O2_VENT
+    - // @input SceneObject DEPRESS_PUMP
+    - // @input TSS_Data tss_obj
+    - // @input Component.Text text

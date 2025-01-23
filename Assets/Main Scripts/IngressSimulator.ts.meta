@@ -1,0 +1,47 @@
+- !<AssetImportMetadata/96c21f8e-44d2-4f92-840a-716bda81c6fc>
+  ImportedAssetIds:
+    TypeScriptAsset: !<reference> dc698fd9-f0f4-49bc-9a98-d4918c98afa0
+  ImporterName: TypeScriptAssetImporter
+  PrimaryAsset: !<reference> dc698fd9-f0f4-49bc-9a98-d4918c98afa0
+  PackageType: NotAPackage
+  PackagePolicy: CannotBeUnpacked
+  ExtraData:
+    {}
+  AssetDataMap:
+    TypeScriptAsset: !<own> 0a3768a5-de62-4a6a-af4a-dc3ebcbfebfb
+  DependentFiles:
+    []
+  ImporterSettings: !<AssetImporterSettings/f1dc62fc-08c2-43a1-aab4-39753287a401>
+    {}
+  CompressionSettings: !<own> 00000000-0000-0000-0000-000000000000
+- !<TypeScriptAssetData/0a3768a5-de62-4a6a-af4a-dc3ebcbfebfb>
+  SvgIcon: ""
+  Description: ""
+  InternalVersion: 0
+  VersionMajor: 0
+  VersionMinor: 0
+  VersionPatch: 0
+  ComponentUid: 00000000-0000-0000-0000-000000000000
+  ExportUid: 00000000-0000-0000-0000-000000000000
+  CurrentVisibility: Editable
+  MaxVisibility: Editable
+  ScriptInputsHidden:
+    nextButton: false
+    prevButton: false
+    statusText: false
+    tssData: false
+  ScriptTypesHidden:
+    {}
+  DefaultScriptInputs:
+    - nextButton: !<MappingBased.Interactable> 00000000-0000-0000-0000-000000000000
+      prevButton: !<MappingBased.Interactable> 00000000-0000-0000-0000-000000000000
+      statusText: !<reference.Text> 00000000-0000-0000-0000-000000000000
+      tssData: !<MappingBased.TSS_Data> 00000000-0000-0000-0000-000000000000
+  ScriptTypes:
+    -
+      {}
+  InputLines:
+    - // @input Interactable nextButton
+    - // @input Interactable prevButton
+    - // @input Component.Text statusText
+    - // @input TSS_Data tssData
