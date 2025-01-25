@@ -36,8 +36,8 @@
     EV2_SUPPLY: false
     EV2_WASTE: false
     O2_VENT: false
+    simulator: false
     text: false
-    tss_obj: false
   ScriptTypesHidden:
     {}
   DefaultScriptInputs:
@@ -52,7 +52,7 @@
       O2_VENT: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       DEPRESS_PUMP: !<reference.SceneObject> 00000000-0000-0000-0000-000000000000
       text: !<reference.Text> 00000000-0000-0000-0000-000000000000
-      tss_obj: !<MappingBased.TSS_Data> 00000000-0000-0000-0000-000000000000
+      simulator: !<MappingBased.IngressSimulator> 00000000-0000-0000-0000-000000000000
   ScriptTypes:
     -
       {}
@@ -67,5 +67,5 @@
     - // @input SceneObject EMU2_OXY
     - // @input SceneObject O2_VENT
     - // @input SceneObject DEPRESS_PUMP
-    - // @input TSS_Data tss_obj
+    - // @input IngressSimulator simulator
     - // @input Component.Text text

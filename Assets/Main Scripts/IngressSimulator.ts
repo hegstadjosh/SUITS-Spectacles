@@ -40,6 +40,7 @@ export class IngressSimulator extends BaseScriptComponent {
         validate(this.statusText);
         validate(this.tssData);
 
+        print("[IngressSimulator] Starting initialization");
         // Initialize the simulated TSS data
         this.initializeTSSData();
 
@@ -49,6 +50,7 @@ export class IngressSimulator extends BaseScriptComponent {
 
         // Initialize display
         this.updateDisplay();
+        print("[IngressSimulator] Initialization complete");
     }
 
     private initializeTSSData(): void {
@@ -90,11 +92,15 @@ export class IngressSimulator extends BaseScriptComponent {
         };
 
         // Initialize the TSS data that will be shared with Ingress.ts
+        print("[IngressSimulator] Initializing UIA data");
         this.tssData.onUIAUpdate(JSON.stringify(initialUIAData));
+        print("[IngressSimulator] Initializing DCU data");
         this.tssData.onDCUUpdate(JSON.stringify(initialDCUData));
+        print("[IngressSimulator] TSS data initialized");
     }
 
     private nextStep(): void {
+        print(`[IngressSimulator] Moving to next step from ${this.currentStep}.${this.currentSubStep}`);
         const currentStepObj = this.steps[this.currentStep];
         const maxSubSteps = Object.keys(currentStepObj).length;
 
@@ -105,11 +111,13 @@ export class IngressSimulator extends BaseScriptComponent {
             this.currentSubStep = 1;
         }
 
+        print(`[IngressSimulator] Now at step ${this.currentStep}.${this.currentSubStep}`);
         this.simulateStepCompletion();
         this.updateDisplay();
     }
 
     private previousStep(): void {
+        print(`[IngressSimulator] Moving to previous step from ${this.currentStep}.${this.currentSubStep}`);
         if (this.currentSubStep > 1) {
             this.currentSubStep--;
         } else if (this.currentStep > 1) {
@@ -117,6 +125,7 @@ export class IngressSimulator extends BaseScriptComponent {
             this.currentSubStep = Object.keys(this.steps[this.currentStep]).length;
         }
 
+        print(`[IngressSimulator] Now at step ${this.currentStep}.${this.currentSubStep}`);
         this.simulateStepCompletion();
         this.updateDisplay();
     }
@@ -153,35 +162,44 @@ export class IngressSimulator extends BaseScriptComponent {
             oxy_vent: false
         };
 
+        print(`[IngressSimulator] Current UIA state before update: eva1_power=${currentUIAState.eva1_power}, oxy_vent=${currentUIAState.oxy_vent}, eva1_water_waste=${currentUIAState.eva1_water_waste}`);
+
         // Update state based on current step
         switch (this.currentStep) {
             case 1:
                 if (this.currentSubStep === 1) {
                     currentUIAState.eva1_power = true;
+                    print("[IngressSimulator] Setting eva1_power to true");
                 }
                 break;
             case 2:
                 if (this.currentSubStep === 1) {
                     currentUIAState.oxy_vent = true;
+                    print("[IngressSimulator] Setting oxy_vent to true");
                 } else if (this.currentSubStep === 3) {
                     currentUIAState.oxy_vent = false;
+                    print("[IngressSimulator] Setting oxy_vent to false");
                 }
                 break;
             case 3:
                 if (this.currentSubStep === 2) {
                     currentUIAState.eva1_water_waste = true;
+                    print("[IngressSimulator] Setting eva1_water_waste to true");
                 } else if (this.currentSubStep === 4) {
                     currentUIAState.eva1_water_waste = false;
+                    print("[IngressSimulator] Setting eva1_water_waste to false");
                 }
                 break;
             case 4:
                 if (this.currentSubStep === 1) {
                     currentUIAState.eva1_power = false;
+                    print("[IngressSimulator] Setting eva1_power to false");
                 }
                 break;
         }
 
-        // Update TSS data with new state - this will trigger Ingress.ts to update its scene objects
+        // Update TSS data with new state
+        print(`[IngressSimulator] Updating UIA state: eva1_power=${currentUIAState.eva1_power}, oxy_vent=${currentUIAState.oxy_vent}, eva1_water_waste=${currentUIAState.eva1_water_waste}`);
         this.tssData.onUIAUpdate(JSON.stringify({ uia: currentUIAState }));
     }
 } 
