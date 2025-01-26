@@ -66,11 +66,22 @@ export class Ingress extends BaseScriptComponent {
     }
 
     private executeSteps(): void {
+        // Validate TSS data is available
+        if (!this.tss_obj) {
+            print("[Ingress] ERROR: TSS data is undefined!");
+            this.text.text = "Error: TSS data unavailable";
+            return;
+        }
+
         // Step 1: Connect UIA to DCU and start Depress
         if (!this.isStepComplete(1)) {
             if (!this.steps[1][1]) {
                 this.text.text = "Connect EV-1 UIA and DCU umbilical.";
-                const eva1Power = this.tss_obj?.uia?.uia.eva1_power ?? false;
+                if (!this.tss_obj.uia?.uia) {
+                    print("[Ingress] ERROR: UIA data is undefined!");
+                    return;
+                }
+                const eva1Power = this.tss_obj.uia.uia.eva1_power;
                 print(`[Ingress] Step 1.1 - eva1_power: ${eva1Power}`);
                 this.EMU1_POWER.enabled = !eva1Power;
                 if (!eva1Power) return;
@@ -91,7 +102,11 @@ export class Ingress extends BaseScriptComponent {
         if (!this.isStepComplete(2)) {
             if (!this.steps[2][1]) {
                 this.text.text = "Open O2 vent.";
-                const oxyVent = this.tss_obj?.uia?.uia.oxy_vent ?? false;
+                if (!this.tss_obj.uia?.uia) {
+                    print("[Ingress] ERROR: UIA data is undefined!");
+                    return;
+                }
+                const oxyVent = this.tss_obj.uia.uia.oxy_vent;
                 print(`[Ingress] Step 2.1 - oxy_vent: ${oxyVent}`);
                 this.O2_VENT.enabled = !oxyVent;
                 if (!oxyVent) return;
@@ -99,8 +114,12 @@ export class Ingress extends BaseScriptComponent {
             }
 
             if (!this.steps[2][2]) {
-                const p1 = this.tss_obj?.telemetry?.telemetry.eva1.oxy_pri_storage ?? 0;
-                const s1 = this.tss_obj?.telemetry?.telemetry.eva1.oxy_sec_storage ?? 0;
+                if (!this.tss_obj.telemetry?.telemetry?.eva1) {
+                    print("[Ingress] ERROR: Telemetry data is undefined!");
+                    return;
+                }
+                const p1 = this.tss_obj.telemetry.telemetry.eva1.oxy_pri_storage;
+                const s1 = this.tss_obj.telemetry.telemetry.eva1.oxy_sec_storage;
                 print(`[Ingress] Step 2.2 - oxy_pri_storage: ${p1}, oxy_sec_storage: ${s1}`);
                 this.text.text = `eva1 primary: ${p1} secondary: ${s1}`;
                 const empty = p1 < 10 && s1 < 10;
@@ -110,7 +129,11 @@ export class Ingress extends BaseScriptComponent {
 
             if (!this.steps[2][3]) {
                 this.text.text = "Close O2 vent.";
-                const oxyVent = this.tss_obj?.uia?.uia.oxy_vent ?? false;
+                if (!this.tss_obj.uia?.uia) {
+                    print("[Ingress] ERROR: UIA data is undefined!");
+                    return;
+                }
+                const oxyVent = this.tss_obj.uia.uia.oxy_vent;
                 print(`[Ingress] Step 2.3 - oxy_vent: ${oxyVent}`);
                 this.O2_VENT.enabled = oxyVent;
                 if (oxyVent) return;
@@ -127,7 +150,11 @@ export class Ingress extends BaseScriptComponent {
 
             if (!this.steps[3][2]) {
                 this.text.text = "Open EV-1 waste water.";
-                const waterWaste = this.tss_obj?.uia?.uia.eva1_water_waste ?? false;
+                if (!this.tss_obj.uia?.uia) {
+                    print("[Ingress] ERROR: UIA data is undefined!");
+                    return;
+                }
+                const waterWaste = this.tss_obj.uia.uia.eva1_water_waste;
                 print(`[Ingress] Step 3.2 - eva1_water_waste: ${waterWaste}`);
                 this.EV1_WASTE.enabled = !waterWaste;
                 if (!waterWaste) return;
@@ -135,7 +162,11 @@ export class Ingress extends BaseScriptComponent {
             }
 
             if (!this.steps[3][3]) {
-                const coolant = this.tss_obj?.telemetry?.telemetry.eva1.coolant_ml ?? 0;
+                if (!this.tss_obj.telemetry?.telemetry?.eva1) {
+                    print("[Ingress] ERROR: Telemetry data is undefined!");
+                    return;
+                }
+                const coolant = this.tss_obj.telemetry.telemetry.eva1.coolant_ml;
                 print(`[Ingress] Step 3.3 - coolant_ml: ${coolant}`);
                 this.text.text = `Coolant: ${coolant}.`;
                 if (coolant < 5) return;
@@ -144,7 +175,11 @@ export class Ingress extends BaseScriptComponent {
 
             if (!this.steps[3][4]) {
                 this.text.text = "Close EV-1 waste water.";
-                const waterWaste = this.tss_obj?.uia?.uia.eva1_water_waste ?? false;
+                if (!this.tss_obj.uia?.uia) {
+                    print("[Ingress] ERROR: UIA data is undefined!");
+                    return;
+                }
+                const waterWaste = this.tss_obj.uia.uia.eva1_water_waste;
                 print(`[Ingress] Step 3.4 - eva1_water_waste: ${waterWaste}`);
                 this.EV1_WASTE.enabled = waterWaste;
                 if (waterWaste) return;
@@ -156,7 +191,11 @@ export class Ingress extends BaseScriptComponent {
         if (!this.isStepComplete(4)) {
             if (!this.steps[4][1]) {
                 this.text.text = "Toggle EV-1 EMU PWR off.";
-                const eva1Power = this.tss_obj?.uia?.uia.eva1_power ?? false;
+                if (!this.tss_obj.uia?.uia) {
+                    print("[Ingress] ERROR: UIA data is undefined!");
+                    return;
+                }
+                const eva1Power = this.tss_obj.uia.uia.eva1_power;
                 print(`[Ingress] Step 4.1 - eva1_power: ${eva1Power}`);
                 this.EMU1_POWER.enabled = eva1Power;
                 if (eva1Power) return;
@@ -177,7 +216,11 @@ export class Ingress extends BaseScriptComponent {
 
     private dcu_batt_msg(mode: boolean): boolean {
         const modeText = mode ? "umbilical" : "local";
-        const battState = this.tss_obj?.dcu?.dcu.eva1.batt ?? false;
+        if (!this.tss_obj?.dcu?.dcu?.eva1) {
+            print("[Ingress] ERROR: DCU data is undefined!");
+            return false;
+        }
+        const battState = this.tss_obj.dcu.dcu.eva1.batt;
         print(`[Ingress] DCU batt check - current: ${battState}, expected: ${mode}`);
         if (battState !== mode) {
             this.text.text = `Switch DCU batt to ${modeText}. `;
@@ -188,7 +231,11 @@ export class Ingress extends BaseScriptComponent {
 
     private dcu_oxy_msg(mode: boolean): boolean {
         const modeText = mode ? "primary" : "secondary";
-        const oxyState = this.tss_obj?.dcu?.dcu.eva1.oxy ?? false;
+        if (!this.tss_obj?.dcu?.dcu?.eva1) {
+            print("[Ingress] ERROR: DCU data is undefined!");
+            return false;
+        }
+        const oxyState = this.tss_obj.dcu.dcu.eva1.oxy;
         if (oxyState !== mode) {
             this.text.text = `Switch DCU oxy to ${modeText}. `;
             return false;
@@ -198,7 +245,11 @@ export class Ingress extends BaseScriptComponent {
 
     private dcu_comm_msg(mode: boolean): boolean {
         const modeText = mode ? "A" : "B";
-        const commState = this.tss_obj?.dcu?.dcu.eva1.comm ?? false;
+        if (!this.tss_obj?.dcu?.dcu?.eva1) {
+            print("[Ingress] ERROR: DCU data is undefined!");
+            return false;
+        }
+        const commState = this.tss_obj.dcu.dcu.eva1.comm;
         if (commState !== mode) {
             this.text.text = `Switch DCU comm to ${modeText}. `;
             return false;
@@ -208,7 +259,11 @@ export class Ingress extends BaseScriptComponent {
 
     private dcu_fan_msg(mode: boolean): boolean {
         const modeText = mode ? "primary" : "secondary";
-        const fanState = this.tss_obj?.dcu?.dcu.eva1.fan ?? false;
+        if (!this.tss_obj?.dcu?.dcu?.eva1) {
+            print("[Ingress] ERROR: DCU data is undefined!");
+            return false;
+        }
+        const fanState = this.tss_obj.dcu.dcu.eva1.fan;
         if (fanState !== mode) {
             this.text.text = `Switch DCU fan to ${modeText}. `;
             return false;
@@ -218,7 +273,11 @@ export class Ingress extends BaseScriptComponent {
 
     private dcu_pump_msg(mode: boolean): boolean {
         const modeText = mode ? "open" : "closed";
-        const pumpState = this.tss_obj?.dcu?.dcu.eva1.pump ?? false;
+        if (!this.tss_obj?.dcu?.dcu?.eva1) {
+            print("[Ingress] ERROR: DCU data is undefined!");
+            return false;
+        }
+        const pumpState = this.tss_obj.dcu.dcu.eva1.pump;
         if (pumpState !== mode) {
             this.text.text = `Switch DCU pump to ${modeText}. `;
             return false;
@@ -228,7 +287,11 @@ export class Ingress extends BaseScriptComponent {
 
     private dcu_co2_msg(mode: boolean): boolean {
         const modeText = mode ? "A" : "B";
-        const co2State = this.tss_obj?.dcu?.dcu.eva1.co2 ?? false;
+        if (!this.tss_obj?.dcu?.dcu?.eva1) {
+            print("[Ingress] ERROR: DCU data is undefined!");
+            return false;
+        }
+        const co2State = this.tss_obj.dcu.dcu.eva1.co2;
         if (co2State !== mode) {
             this.text.text = `Switch DCU co2 to ${modeText}. `;
             return false;
